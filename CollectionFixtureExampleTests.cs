@@ -31,6 +31,7 @@ public class TestClass1 : IClassFixture<SharedFixture>
 
     public TestClass1(SharedFixture fixture)
     {
+        Console.WriteLine($"- Running {nameof(TestClass1)} constructor");
         _fixture = fixture; // this is how you get access to the fixture from the tests
     }
 
