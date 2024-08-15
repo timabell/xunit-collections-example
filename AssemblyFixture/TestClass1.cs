@@ -1,4 +1,4 @@
-public class TestClass1
+public class TestClass1 : IAssemblyFixture<AssemblyFixture>
 {
     public TestClass1()
     {
