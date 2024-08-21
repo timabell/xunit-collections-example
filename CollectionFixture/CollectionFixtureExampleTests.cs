@@ -5,6 +5,8 @@
 /// </summary>
 public class SharedFixture : IDisposable
 {
+    public int CallCount { get; set; }
+
     public SharedFixture()
     {
         Console.WriteLine($"Running {nameof(SharedFixture)} constructor -  Setup code that runs once across all test classes.");
@@ -12,7 +14,7 @@ public class SharedFixture : IDisposable
 
     public void Dispose()
     {
-        Console.WriteLine($"Running {nameof(SharedFixture)} dispose -  Cleanup code that runs once after all tests are done");
+        Console.WriteLine($"Running {nameof(SharedFixture)} dispose -  Cleanup code that runs once after all tests are done. {CallCount} calls made to this fixture instance");
     }
 }
 
