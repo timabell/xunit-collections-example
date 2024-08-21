@@ -1,3 +1,5 @@
+using Xunit.Extensions.AssemblyFixture;
+
 public class TestClass1 : IAssemblyFixture<AssemblyFixture>
 {
     public TestClass1()
