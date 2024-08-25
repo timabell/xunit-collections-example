@@ -13,7 +13,7 @@ public class TestClass2 : IAssemblyFixture<AssemblyFixture>
     [Fact]
     public void Test2()
     {
-        Console.Out.WriteLine($"- Running Assembly {nameof(TestClass2)}.{nameof(TestClass2.Test2)}");
+        Console.Out.WriteLine($"- Running Assembly {nameof(TestClass2)}.{nameof(Test2)}");
         _fixture.IncrementCallCount();
         AssemblyFixture.SlowDown();
         Assert.True(true);
@@ -22,7 +22,7 @@ public class TestClass2 : IAssemblyFixture<AssemblyFixture>
     [Fact]
     public void Test3()
     {
-        Console.Out.WriteLine($"- Running Assembly {nameof(TestClass2)}.{nameof(TestClass2.Test3)}");
+        Console.Out.WriteLine($"- Running Assembly {nameof(TestClass2)}.{nameof(Test3)}");
         _fixture.IncrementCallCount();
         AssemblyFixture.SlowDown();
         Assert.True(true);

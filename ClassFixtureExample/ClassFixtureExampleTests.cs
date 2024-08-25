@@ -51,7 +51,7 @@ public class TestClass1 : IClassFixture<SharedFixture>
     [Fact]
     public void Test2()
     {
-        Console.Out.WriteLine($"- Running class-fixture {nameof(TestClass1)}.{nameof(TestClass1.Test2)}");
+        Console.Out.WriteLine($"- Running class-fixture {nameof(TestClass1)}.{nameof(Test2)}");
         _fixture.IncrementCallCount();
         SharedFixture.SlowDown();
         Assert.True(true);
@@ -60,7 +60,7 @@ public class TestClass1 : IClassFixture<SharedFixture>
     [Fact]
     public void Test1()
     {
-        Console.Out.WriteLine($"- Running class-fixture {nameof(TestClass1)}.{nameof(TestClass1.Test1)}");
+        Console.Out.WriteLine($"- Running class-fixture {nameof(TestClass1)}.{nameof(Test1)}");
         _fixture.IncrementCallCount();
         SharedFixture.SlowDown();
         Assert.True(true);
@@ -80,7 +80,7 @@ public class TestClass2 : IClassFixture<SharedFixture>
     [Fact]
     public void Test3()
     {
-        Console.Out.WriteLine($"- Running class-fixture {nameof(TestClass2)}.{nameof(TestClass2.Test3)}");
+        Console.Out.WriteLine($"- Running class-fixture {nameof(TestClass2)}.{nameof(Test3)}");
         _fixture.IncrementCallCount();
         SharedFixture.SlowDown();
         Assert.True(true);
