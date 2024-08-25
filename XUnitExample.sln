@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CollectionFixtureXUnitExamp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassFixtureExample", "ClassFixtureExample\ClassFixtureExample.csproj", "{BCB24681-EA8C-491A-B283-6F138FE2D138}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssemblyFixtureXUnitExample", "AssemblyFixture\AssemblyFixtureXUnitExample.csproj", "{2F9FE324-42EF-4C06-A089-31EEBB862867}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JDCainAssemblyFixtureXUnitExample", "JDCainAssemblyFixture\JDCainAssemblyFixtureXUnitExample.csproj", "{2F9FE324-42EF-4C06-A089-31EEBB862867}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
