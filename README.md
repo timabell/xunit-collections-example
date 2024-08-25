@@ -12,3 +12,5 @@ e.g.
 cd ClassSetupExample 
 GO_SLOW=true dotnet test
 ```
+
+Note that `dotnet test` runs test projects in parallel. Other test runners my operate differently, for example Rider defaults to a maximum of 1 "test runner to run in parallel", but this can be increased in the settings.
