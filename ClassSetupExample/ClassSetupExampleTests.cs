@@ -19,13 +19,20 @@ public class ClassSetupExampleTests
     public void Test2()
     {
         Console.Out.WriteLine($"- Running {nameof(ClassSetupExampleTests)}.{nameof(Test2)}");
+        if (SlowMode) { Thread.Sleep(2000); }
         Assert.True(true);
+        Console.Out.WriteLine($"- Done {nameof(ClassSetupExampleTests)}.{nameof(Test2)}");
     }
+
 
     [Fact]
     public void Test1()
     {
         Console.Out.WriteLine($"- Running {nameof(ClassSetupExampleTests)}.{nameof(Test1)}");
+        if (SlowMode) { Thread.Sleep(2000); }
         Assert.True(true);
+        Console.Out.WriteLine($"- Done {nameof(ClassSetupExampleTests)}.{nameof(Test1)}");
     }
+
+    private static bool SlowMode => Environment.GetEnvironmentVariable("GO_SLOW") == "true";
 }
