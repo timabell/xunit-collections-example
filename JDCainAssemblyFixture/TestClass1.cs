@@ -14,7 +14,8 @@ public class TestClass1 : IAssemblyFixture<AssemblyFixture>
     public void Test1()
     {
         Console.Out.WriteLine($"- Running Assembly {nameof(TestClass1)}.{nameof(TestClass1.Test1)}");
-        Assert.True(true);
         _fixture.IncrementCallCount();
+        AssemblyFixture.SlowDown();
+        Assert.True(true);
     }
 }

@@ -2,6 +2,7 @@ namespace ClassSetupExample;
 
 /// <summary>
 /// This is the simplest way of creating common setup code for xUnit tests.
+/// Tests in this class will be run in series by xUnit.
 /// </summary>
 public class ClassSetupExampleTests
 {
@@ -19,7 +20,7 @@ public class ClassSetupExampleTests
     public void Test2()
     {
         Console.Out.WriteLine($"- Running {nameof(ClassSetupExampleTests)}.{nameof(Test2)}");
-        if (SlowMode) { Thread.Sleep(2000); }
+        SlowDown();
         Assert.True(true);
         Console.Out.WriteLine($"- Done {nameof(ClassSetupExampleTests)}.{nameof(Test2)}");
     }
@@ -29,10 +30,19 @@ public class ClassSetupExampleTests
     public void Test1()
     {
         Console.Out.WriteLine($"- Running {nameof(ClassSetupExampleTests)}.{nameof(Test1)}");
-        if (SlowMode) { Thread.Sleep(2000); }
+        SlowDown();
         Assert.True(true);
         Console.Out.WriteLine($"- Done {nameof(ClassSetupExampleTests)}.{nameof(Test1)}");
     }
 
     private static bool SlowMode => Environment.GetEnvironmentVariable("GO_SLOW") == "true";
+    /// <summary>Helper to slow down tests to make it easier to see what's being run in parallel</summary>
+    private static void SlowDown()
+    {
+	    if (SlowMode)
+	    {
+		    Console.Out.WriteLine("zzz");
+		    Thread.Sleep(2000);
+	    }
+    }
 }

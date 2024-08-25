@@ -2,10 +2,25 @@ using Xunit.Extensions.AssemblyFixture;
 
 [assembly: TestFramework(AssemblyFixtureFramework.TypeName, AssemblyFixtureFramework.AssemblyName)]
 
+/// <summary>
+/// This 3rd-party library is used to run setup code once for the entire assembly.
+/// This does not affect the default xUnit parallelism, so the classes will be run
+/// in parallel, and the tests within each class will be run in series.
+/// </summary>
 public class AssemblyFixture : IDisposable
 {
     private int _callCount;
     private int CallCount => _callCount;
+    private static bool SlowMode => Environment.GetEnvironmentVariable("GO_SLOW") == "true";
+    /// <summary>Helper to slow down tests to make it easier to see what's being run in parallel</summary>
+    public static void SlowDown()
+    {
+	    if (SlowMode)
+	    {
+		    Console.Out.WriteLine("zzz");
+		    Thread.Sleep(2000);
+	    }
+    }
 
     public AssemblyFixture()
     {

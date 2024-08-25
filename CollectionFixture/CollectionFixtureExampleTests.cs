@@ -2,11 +2,22 @@
 /// Setup / teardown code shared across classes with the named
 /// collection fixture. This is one of the design weaknesses
 /// of xUnit - that the tests and fixture are connected by string matches.
+/// The addition of the named collection forces the tests to run in series.
 /// </summary>
 public class SharedCollectionFixture : IDisposable
 {
     private int _callCount;
     private int CallCount => _callCount;
+    private static bool SlowMode => Environment.GetEnvironmentVariable("GO_SLOW") == "true";
+    /// <summary>Helper to slow down tests to make it easier to see what's being run in parallel</summary>
+    public static void SlowDown()
+    {
+	    if (SlowMode)
+	    {
+		    Console.Out.WriteLine("zzz");
+		    Thread.Sleep(2000);
+	    }
+    }
 
     public SharedCollectionFixture()
     {
@@ -53,6 +64,7 @@ public class TestClass1 : IClassFixture<SharedCollectionFixture>
     {
         Console.Out.WriteLine($"- Running {nameof(TestClass1)}.{nameof(TestClass1.Test2)}");
         _fixture.IncrementCallCount();
+        SharedCollectionFixture.SlowDown();
         Assert.True(true);
     }
 
@@ -61,6 +73,7 @@ public class TestClass1 : IClassFixture<SharedCollectionFixture>
     {
         Console.Out.WriteLine($"- Running {nameof(TestClass1)}.{nameof(TestClass1.Test1)}");
         _fixture.IncrementCallCount();
+        SharedCollectionFixture.SlowDown();
         Assert.True(true);
     }
 }
@@ -80,6 +93,7 @@ public class TestClass2 : IClassFixture<SharedCollectionFixture>
     {
         Console.Out.WriteLine($"- Running {nameof(TestClass2)}.{nameof(TestClass2.Test3)}");
         _fixture.IncrementCallCount();
+        SharedCollectionFixture.SlowDown();
         Assert.True(true);
     }
 }

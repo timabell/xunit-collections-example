@@ -5,11 +5,22 @@
 /// it creates (one for every test in every class).
 /// This allows you to share state between tests in the same class,
 /// but not between test classes.
+/// xUnit will run the classes in parallel by default, and the tests within each class in series.
 /// </summary>
 public class SharedFixture : IDisposable
 {
     private int _callCount;
     private int CallCount => _callCount;
+    private static bool SlowMode => Environment.GetEnvironmentVariable("GO_SLOW") == "true";
+    /// <summary>Helper to slow down tests to make it easier to see what's being run in parallel</summary>
+    public static void SlowDown()
+    {
+	    if (SlowMode)
+	    {
+		    Console.Out.WriteLine("zzz");
+		    Thread.Sleep(2000);
+	    }
+    }
 
     public SharedFixture()
     {
@@ -42,6 +53,7 @@ public class TestClass1 : IClassFixture<SharedFixture>
     {
         Console.Out.WriteLine($"- Running class-fixture {nameof(TestClass1)}.{nameof(TestClass1.Test2)}");
         _fixture.IncrementCallCount();
+        SharedFixture.SlowDown();
         Assert.True(true);
     }
 
@@ -50,6 +62,7 @@ public class TestClass1 : IClassFixture<SharedFixture>
     {
         Console.Out.WriteLine($"- Running class-fixture {nameof(TestClass1)}.{nameof(TestClass1.Test1)}");
         _fixture.IncrementCallCount();
+        SharedFixture.SlowDown();
         Assert.True(true);
     }
 }
@@ -69,6 +82,7 @@ public class TestClass2 : IClassFixture<SharedFixture>
     {
         Console.Out.WriteLine($"- Running class-fixture {nameof(TestClass2)}.{nameof(TestClass2.Test3)}");
         _fixture.IncrementCallCount();
+        SharedFixture.SlowDown();
         Assert.True(true);
     }
 }

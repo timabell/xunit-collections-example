@@ -14,15 +14,17 @@ public class TestClass2 : IAssemblyFixture<AssemblyFixture>
     public void Test2()
     {
         Console.Out.WriteLine($"- Running Assembly {nameof(TestClass2)}.{nameof(TestClass2.Test2)}");
-        Assert.True(true);
         _fixture.IncrementCallCount();
+        AssemblyFixture.SlowDown();
+        Assert.True(true);
     }
 
     [Fact]
     public void Test3()
     {
         Console.Out.WriteLine($"- Running Assembly {nameof(TestClass2)}.{nameof(TestClass2.Test3)}");
-        Assert.True(true);
         _fixture.IncrementCallCount();
+        AssemblyFixture.SlowDown();
+        Assert.True(true);
     }
 }
