@@ -5,7 +5,7 @@ using Xunit.Extensions.AssemblyFixture;
 public class AssemblyFixture : IDisposable
 {
     private int _callCount;
-    public int CallCount => _callCount;
+    private int CallCount => _callCount;
 
     public AssemblyFixture()
     {

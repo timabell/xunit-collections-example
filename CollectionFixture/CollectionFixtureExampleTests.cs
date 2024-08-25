@@ -6,7 +6,7 @@
 public class SharedCollectionFixture : IDisposable
 {
     private int _callCount;
-    public int CallCount => _callCount;
+    private int CallCount => _callCount;
 
     public SharedCollectionFixture()
     {
@@ -40,7 +40,7 @@ public class SharedFixtureCollection : ICollectionFixture<SharedCollectionFixtur
 [Collection(nameof(SharedFixtureCollection))]
 public class TestClass1 : IClassFixture<SharedCollectionFixture>
 {
-    SharedCollectionFixture _fixture;
+    private readonly SharedCollectionFixture _fixture;
 
     public TestClass1(SharedCollectionFixture fixture)
     {

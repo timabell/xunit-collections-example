@@ -9,7 +9,7 @@
 public class SharedFixture : IDisposable
 {
     private int _callCount;
-    public int CallCount => _callCount;
+    private int CallCount => _callCount;
 
     public SharedFixture()
     {
@@ -29,7 +29,7 @@ public class SharedFixture : IDisposable
 
 public class TestClass1 : IClassFixture<SharedFixture>
 {
-    SharedFixture _fixture;
+    private readonly SharedFixture _fixture;
 
     public TestClass1(SharedFixture fixture)
     {
@@ -56,7 +56,7 @@ public class TestClass1 : IClassFixture<SharedFixture>
 
 public class TestClass2 : IClassFixture<SharedFixture>
 {
-    SharedFixture _fixture;
+    private readonly SharedFixture _fixture;
 
     public TestClass2(SharedFixture fixture)
     {
