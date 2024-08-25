@@ -1,20 +1,26 @@
-// https://timwise.co.uk/2024/08/02/running-xunit-test-setup-only-once/
-
 /// <summary>
-/// Setup / teardown code that the tests need to work.
+/// Setup / teardown code shared across classes with the named
+/// collection fixture. This is one of the design weaknesses
+/// of xUnit - that the tests and fixture are connected by string matches.
 /// </summary>
-public class SharedFixture : IDisposable
+public class SharedCollectionFixture : IDisposable
 {
-    public int CallCount { get; set; }
+    private int _callCount;
+    public int CallCount => _callCount;
 
-    public SharedFixture()
+    public SharedCollectionFixture()
     {
-        Console.WriteLine($"Running {nameof(SharedFixture)} constructor -  Setup code that runs once across all test classes.");
+        Console.WriteLine($"Running {nameof(SharedCollectionFixture)} constructor -  Setup code that runs once across all test classes.");
     }
 
     public void Dispose()
     {
-        Console.WriteLine($"Running {nameof(SharedFixture)} dispose -  Cleanup code that runs once after all tests are done. {CallCount} calls made to this fixture instance");
+        Console.WriteLine($"Running {nameof(SharedCollectionFixture)} dispose -  Cleanup code that runs once after all tests are done. {CallCount} calls made to this fixture instance");
+    }
+
+    public void IncrementCallCount()
+    {
+        Interlocked.Increment(ref _callCount);
     }
 }
 
@@ -24,14 +30,19 @@ public class SharedFixture : IDisposable
 /// and as a middle point in connecting the fixture to the test classes.
 /// </summary>
 [CollectionDefinition(nameof(SharedFixtureCollection))]
-public class SharedFixtureCollection : ICollectionFixture<SharedFixture> { }
+public class SharedFixtureCollection : ICollectionFixture<SharedCollectionFixture> { }
 
+/// <summary>
+/// The `CollectionAttribute` decoration does two things:
+/// 1. Prevent tests with the same collection running in parallel
+/// 2. Connect the test class to the matching shared fixture
+/// </summary>
 [Collection(nameof(SharedFixtureCollection))]
-public class TestClass1 : IClassFixture<SharedFixture>
+public class TestClass1 : IClassFixture<SharedCollectionFixture>
 {
-    SharedFixture _fixture;
+    SharedCollectionFixture _fixture;
 
-    public TestClass1(SharedFixture fixture)
+    public TestClass1(SharedCollectionFixture fixture)
     {
         Console.WriteLine($"- Running {nameof(TestClass1)} constructor");
         _fixture = fixture; // this is how you get access to the fixture from the tests
@@ -41,7 +52,7 @@ public class TestClass1 : IClassFixture<SharedFixture>
     public void Test2()
     {
         Console.Out.WriteLine($"- Running {nameof(TestClass1)}.{nameof(TestClass1.Test2)}");
-        //_fixture.DoSomething();
+        _fixture.IncrementCallCount();
         Assert.True(true);
     }
 
@@ -49,17 +60,26 @@ public class TestClass1 : IClassFixture<SharedFixture>
     public void Test1()
     {
         Console.Out.WriteLine($"- Running {nameof(TestClass1)}.{nameof(TestClass1.Test1)}");
+        _fixture.IncrementCallCount();
         Assert.True(true);
     }
 }
 
 [Collection(nameof(SharedFixtureCollection))]
-public class TestClass2 : IClassFixture<SharedFixture>
+public class TestClass2 : IClassFixture<SharedCollectionFixture>
 {
+    private readonly SharedCollectionFixture _fixture;
+
+    public TestClass2(SharedCollectionFixture fixture)
+    {
+        _fixture = fixture;
+    }
+
     [Fact]
     public void Test3()
     {
         Console.Out.WriteLine($"- Running {nameof(TestClass2)}.{nameof(TestClass2.Test3)}");
+        _fixture.IncrementCallCount();
         Assert.True(true);
     }
 }

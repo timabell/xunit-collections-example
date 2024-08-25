@@ -1,12 +1,15 @@
-// https://timwise.co.uk/2024/08/02/running-xunit-test-setup-only-once/
-
 /// <summary>
-/// Setup / teardown code that the tests need to work.
-/// Will be run once per class in the project/assembly.
+/// Setup / teardown code shared across multiple test classes.
+/// xUnit will create one instance of this fixture *per test class*,
+/// and inject that same instance into each test class instance that
+/// it creates (one for every test in every class).
+/// This allows you to share state between tests in the same class,
+/// but not between test classes.
 /// </summary>
 public class SharedFixture : IDisposable
 {
-    public int CallCount { get; set; }
+    private int _callCount;
+    public int CallCount => _callCount;
 
     public SharedFixture()
     {
@@ -16,6 +19,11 @@ public class SharedFixture : IDisposable
     public void Dispose()
     {
         Console.WriteLine($"Running class-fixture {nameof(SharedFixture)} dispose -  Cleanup code that runs once after all tests are done. {CallCount} calls made to this fixture instance");
+    }
+
+    public void IncrementCallCount()
+    {
+        Interlocked.Increment(ref _callCount);
     }
 }
 
@@ -33,17 +41,16 @@ public class TestClass1 : IClassFixture<SharedFixture>
     public void Test2()
     {
         Console.Out.WriteLine($"- Running class-fixture {nameof(TestClass1)}.{nameof(TestClass1.Test2)}");
-        //_fixture.DoSomething();
+        _fixture.IncrementCallCount();
         Assert.True(true);
-        _fixture.CallCount++;
     }
 
     [Fact]
     public void Test1()
     {
         Console.Out.WriteLine($"- Running class-fixture {nameof(TestClass1)}.{nameof(TestClass1.Test1)}");
+        _fixture.IncrementCallCount();
         Assert.True(true);
-        _fixture.CallCount++;
     }
 }
 
@@ -61,7 +68,7 @@ public class TestClass2 : IClassFixture<SharedFixture>
     public void Test3()
     {
         Console.Out.WriteLine($"- Running class-fixture {nameof(TestClass2)}.{nameof(TestClass2.Test3)}");
+        _fixture.IncrementCallCount();
         Assert.True(true);
-        _fixture.CallCount++;
     }
 }
