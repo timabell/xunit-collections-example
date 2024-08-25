@@ -2,6 +2,7 @@
 
 /// <summary>
 /// Setup / teardown code that the tests need to work.
+/// Will be run once per class in the project/assembly.
 /// </summary>
 public class SharedFixture : IDisposable
 {
