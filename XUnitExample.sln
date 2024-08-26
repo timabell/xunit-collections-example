@@ -26,6 +26,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassSetupExample", "ClassSetupExample\ClassSetupExample.csproj", "{EEA7C390-0B01-4554-AE4A-96C7BD34E432}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "V3AssemblyFixture", "V3AssemblyFixture\V3AssemblyFixture.csproj", "{6C65FB01-0CCC-4ABF-BB17-FA4EF49DDCAA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{EEA7C390-0B01-4554-AE4A-96C7BD34E432}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EEA7C390-0B01-4554-AE4A-96C7BD34E432}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EEA7C390-0B01-4554-AE4A-96C7BD34E432}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C65FB01-0CCC-4ABF-BB17-FA4EF49DDCAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C65FB01-0CCC-4ABF-BB17-FA4EF49DDCAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C65FB01-0CCC-4ABF-BB17-FA4EF49DDCAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C65FB01-0CCC-4ABF-BB17-FA4EF49DDCAA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{30130CA4-4BC1-4C5E-8084-86FD3288C2C4} = {C51DDA7A-171E-42AA-BB3A-4C8B84035729}
