@@ -11,6 +11,12 @@ public class AssemblyFixtureExample : IDisposable
     private int _callCount;
     private int CallCount => _callCount;
     private static bool SlowMode => Environment.GetEnvironmentVariable("GO_SLOW") == "true";
+
+    public AssemblyFixtureExample()
+    {
+        Console.WriteLine("Running AssemblyFixture constructor - Setup code that runs once for the entire assembly.");
+    }
+
     /// <summary>Helper to slow down tests to make it easier to see what's being run in parallel</summary>
     public void SlowDown()
     {
@@ -19,11 +25,6 @@ public class AssemblyFixtureExample : IDisposable
 		    Console.Out.WriteLine("zzz");
 		    Thread.Sleep(2000);
 	    }
-    }
-
-    public AssemblyFixtureExample()
-    {
-        Console.WriteLine("Running AssemblyFixture constructor - Setup code that runs once for the entire assembly.");
     }
 
     public void IncrementCallCount()
