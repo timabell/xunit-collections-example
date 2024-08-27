@@ -1,19 +1,21 @@
 public class TestClass1
 {
     private readonly AssemblyFixtureExample _fixture;
+    private readonly ITestOutputHelper _output;
 
-    public TestClass1(AssemblyFixtureExample fixture)
+    public TestClass1(AssemblyFixtureExample fixture, ITestOutputHelper output)
     {
         _fixture = fixture;
-        Console.WriteLine($"- Running Assembly {nameof(TestClass1)} constructor");
+        _output = output;
+        output.WriteLine($"- Running Assembly {nameof(TestClass1)} constructor");
     }
 
     [Fact]
     public void Test1()
     {
-        Console.Out.WriteLine($"- Running Assembly {nameof(TestClass1)}.{nameof(Test1)}");
+        _output.WriteLine($"- Running Assembly {nameof(TestClass1)}.{nameof(Test1)}");
         _fixture.IncrementCallCount();
-        AssemblyFixtureExample.SlowDown();
+        _fixture.SlowDown();
         Assert.True(true);
     }
 }

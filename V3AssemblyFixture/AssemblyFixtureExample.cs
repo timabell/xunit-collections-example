@@ -12,7 +12,7 @@ public class AssemblyFixtureExample : IDisposable
     private int CallCount => _callCount;
     private static bool SlowMode => Environment.GetEnvironmentVariable("GO_SLOW") == "true";
     /// <summary>Helper to slow down tests to make it easier to see what's being run in parallel</summary>
-    public static void SlowDown()
+    public void SlowDown()
     {
 	    if (SlowMode)
 	    {
