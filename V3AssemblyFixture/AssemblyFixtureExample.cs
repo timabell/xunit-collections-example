@@ -14,7 +14,7 @@ public class AssemblyFixtureExample : IDisposable
 
 	public AssemblyFixtureExample()
 	{
-		Console.WriteLine("Running AssemblyFixture constructor - Setup code that runs once for the entire assembly.");
+		TestContext.Current.SendDiagnosticMessage("Running AssemblyFixture constructor - Setup code that runs once for the entire assembly.");
 	}
 
 	/// <summary>Helper to slow down tests to make it easier to see what's being run in parallel</summary>
@@ -23,6 +23,7 @@ public class AssemblyFixtureExample : IDisposable
 		if (SlowMode)
 		{
 			Console.Out.WriteLine("zzz");
+			TestContext.Current.SendDiagnosticMessage("diag ZZZ");
 			Thread.Sleep(2000);
 		}
 	}
