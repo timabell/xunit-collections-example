@@ -16,11 +16,11 @@ public class SharedCollectionFixture : IDisposable
 	private static bool SlowMode => Environment.GetEnvironmentVariable("GO_SLOW") == "true";
 
 	/// <summary>Helper to slow down tests to make it easier to see what's being run in parallel</summary>
-	public static void SlowDown()
+	public static void SlowDown(string context = "")
 	{
 		if (SlowMode)
 		{
-			Console.Out.WriteLine("zzz");
+			Console.Out.WriteLine($"zzz {context}");
 			Thread.Sleep(2000);
 		}
 	}
@@ -67,7 +67,7 @@ public class TestClass1 : IClassFixture<SharedCollectionFixture>
 	{
 		Console.Out.WriteLine($"- Running {nameof(TestClass1)}.{nameof(Test1)}");
 		_fixture.Calls.Add($"{nameof(TestClass1)}.{nameof(Test1)}");
-		SharedCollectionFixture.SlowDown();
+		SharedCollectionFixture.SlowDown(nameof(Test1));
 		Assert.True(true);
 	}
 
@@ -76,7 +76,7 @@ public class TestClass1 : IClassFixture<SharedCollectionFixture>
 	{
 		Console.Out.WriteLine($"- Running {nameof(TestClass1)}.{nameof(Test2)}");
 		_fixture.Calls.Add($"{nameof(TestClass1)}.{nameof(Test2)}");
-		SharedCollectionFixture.SlowDown();
+		SharedCollectionFixture.SlowDown(nameof(Test2));
 		Assert.True(true);
 	}
 }
@@ -97,7 +97,7 @@ public class TestClass2 : IClassFixture<SharedCollectionFixture>
 	{
 		Console.Out.WriteLine($"- Running {nameof(TestClass2)}.{nameof(Test3)}");
 		_fixture.Calls.Add($"{nameof(TestClass2)}.{nameof(Test3)}");
-		SharedCollectionFixture.SlowDown();
+		SharedCollectionFixture.SlowDown(nameof(Test3));
 		Assert.True(true);
 	}
 }
@@ -117,7 +117,7 @@ public class TestClass3 : IClassFixture<SharedCollectionFixture>
 	{
 		Console.Out.WriteLine($"- Running {nameof(TestClass3)}.{nameof(Test4)}");
 		_fixture.Calls.Add($"{nameof(TestClass3)}.{nameof(Test4)}");
-		SharedCollectionFixture.SlowDown();
+		SharedCollectionFixture.SlowDown(nameof(Test4));
 		Assert.True(true);
 	}
 }
