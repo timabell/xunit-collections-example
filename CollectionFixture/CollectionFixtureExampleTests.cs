@@ -27,12 +27,12 @@ public class SharedCollectionFixture : IDisposable
 
 	public SharedCollectionFixture()
 	{
-		Console.WriteLine($"Running {nameof(SharedCollectionFixture)} constructor -  Setup code that runs once across all test classes.");
+		Console.WriteLine($"Running {nameof(SharedCollectionFixture)} constructor -  Setup code that runs once for each test class.");
 	}
 
 	public void Dispose()
 	{
-		Console.WriteLine($"Running {nameof(SharedCollectionFixture)} dispose -  Cleanup code that runs once after all tests are done. Calls made to this fixture instance from: {string.Join(", ", Calls)}");
+		Console.WriteLine($"Running {nameof(SharedCollectionFixture)} dispose -  Cleanup code that runs once after all tests in the class are done. Call log: [{string.Join(", ", Calls)}]");
 	}
 }
 
