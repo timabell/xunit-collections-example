@@ -88,6 +88,7 @@ public class TestClass2 : IClassFixture<SharedCollectionFixture>
 
 	public TestClass2(SharedCollectionFixture fixture)
 	{
+		Console.WriteLine($"- Running {nameof(TestClass2)} constructor");
 		_fixture = fixture;
 	}
 
